@@ -1,35 +1,13 @@
-import React, {useState, useCallback, memo, useMemo} from 'react';
+import React, {useState, useCallback, memo, useMemo, useEffect} from 'react';
 import './App.css';
 
 const randomColor = () => '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
 
-const Button = memo(props =>
-  <button onClick={props.onClick} style={{background: randomColor()}}>
-    {props.children}
+const Button = memo(({onClick, children}) =>
+  <button onClick={onClick} style={{background: randomColor()}}>
+    {children}
   </button>
 );
-
-
-// class Button extends React.Component {
-//
-//   shouldComponentUpdate(nextProps) {
-//     console.log(nextProps.onClick !== this.props.onClick, this.props.children !== nextProps.children);
-//     return nextProps.onClick !== this.props.onClick
-//   }
-//
-//   componentDidUpdate(prevProps, prevState, snapshot) {
-//     console.log('update')
-//   }
-//
-//   render() {
-//     return (
-//       <button onClick={this.props.onClick} style={{background: randomColor()}}>
-//         {this.props.children}
-//       </button>
-//     )
-//   }
-// }
-
 
 const functions = new Set();
 
@@ -43,15 +21,13 @@ function App() {
   const increment = useCallback(() => setC(c => c + delta), [delta]);
   // const increment = useMemo(() => () => setC(c => c + delta), [delta]);
 
-  // const incrementBoth = useCallback(() => {
-  //   incrementDelta();
-  //   increment();
-  // }, [increment, incrementDelta]);
-
-
   functions.add(incrementDelta);
   functions.add(increment);
-  // functions.add(incrementBoth);
+
+  useEffect(() => {
+    console.log('hi');
+    document.title = `You click ${c} times`
+  }, [c]);
 
   return (
     <>
