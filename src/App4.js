@@ -1,17 +1,9 @@
-import React, {useState, useCallback, memo, useMemo, useEffect} from 'react';
-import './App.css';
-
-const randomColor = () => '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
-
-const Button = memo(({onClick, children}) =>
-  <button onClick={onClick} style={{background: randomColor()}}>
-    {children}
-  </button>
-);
+import React, {useState, useCallback, useMemo, useEffect} from 'react';
+import Button from './Button'
 
 const functions = new Set();
 
-function App() {
+function App4() {
 
   const [delta, setDelta] = useState(1);
   const [c, setC] = useState(0);
@@ -30,7 +22,9 @@ function App() {
   }, [c]);
 
   return (
-    <>
+    <div className='app'>
+      <h3>最终扩充优化版</h3>
+      <br/>
       <div>Delta is {delta}</div>
       <div>Counter is {c} </div>
       <div>Significant of C is {sinOfC}</div>
@@ -41,12 +35,12 @@ function App() {
       </div>
       <br/>
       <div>Newly Created Functions: {functions.size - 2}</div>
-    </>
+    </div>
   );
 }
 
 
-export default App;
+export default App4;
 
 
 // https://nikgrozev.com/2019/04/07/reacts-usecallback-and-usememo-hooks-by-example/
